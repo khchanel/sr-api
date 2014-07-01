@@ -3,23 +3,39 @@
 class SorsController extends \BaseController {
 
     /**
-     * Display a listing of the resource.
-     * GET /sors
+     * fetch a listing of the SORs.
+     * GET /sor/
+     * GET /sor/list
      *
-     * @return Response
+     * @return array of SOR objects
      */
     public function index()
     {
-        //$sors = DB::table('sr_sors')->take(20)->get();
         $sors = Sor::take(20)->get();
         return Response::json($sors, 200, array('Access-Control-Allow-Origin' => '*'));
     }
+
+    /**
+     * fetch a specific SOR record
+     * GET /sor/{code}
+     *
+     * @return a SOR object
+     */
     public function show($code)
     {
-        //$sor = DB::table('sr_sors')->where('SORCode', $id)->first();
         $sor = Sor::find($code);
         return Response::json($sor, 200, array('Access-Control-Allow-Origin' => '*'));
     }
 
-
+    /**
+     * fetch a list of SOR filtered by location
+     * GET /sor/location/{loc}
+     *
+     * @return array of SOR objects
+     */
+    public function location($loc)
+    {
+        $sors = Sor::where('Location', 'LIKE', "%$loc%")->get();
+        return Response::json($sors, 200, array('Access-Control-Allow-Origin' => '*'));
+    }
 }
