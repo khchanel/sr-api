@@ -2,6 +2,13 @@
 
 class SorsController extends \BaseController {
 
+
+    public function __construct()
+    {
+        header('Access-Control-Allow-Origin: *');
+    }
+
+
     /**
      * fetch a listing of the SORs.
      * GET /sor/
@@ -12,7 +19,7 @@ class SorsController extends \BaseController {
     public function index()
     {
         $sors = Sor::take(20)->get();
-        return Response::json($sors, 200, array('Access-Control-Allow-Origin' => '*'));
+        return Response::json($sors);
     }
 
     /**
@@ -24,7 +31,7 @@ class SorsController extends \BaseController {
     public function show($code)
     {
         $sor = Sor::find($code);
-        return Response::json($sor, 200, array('Access-Control-Allow-Origin' => '*'));
+        return Response::json($sor);
     }
 
     /**
@@ -36,6 +43,6 @@ class SorsController extends \BaseController {
     public function location($loc)
     {
         $sors = Sor::where('Location', 'LIKE', "%$loc%")->get();
-        return Response::json($sors, 200, array('Access-Control-Allow-Origin' => '*'));
+        return Response::json($sors);
     }
 }
