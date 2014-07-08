@@ -16,6 +16,4 @@ Route::get('/', function()
 	return View::make('hello');
 });
 
-Route::get('/sor/location/{loc}', array('as' => 'sor.location', 'uses' => 'SorsController@location'));
-Route::get('/sor/list', array('as' => 'sor.list', 'uses' => 'SorsController@index'));
 Route::resource('/sor', 'SorsController');
