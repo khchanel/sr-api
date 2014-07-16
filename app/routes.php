@@ -17,3 +17,4 @@ Route::get('/', function()
 });
 
 Route::resource('/sor', 'SorsController');
+Route::get('/projects/services/projects.svc/GetProjectsMethod/inputStr/{user}/{passwd}', 'ProjectController@getProject');
