@@ -16,5 +16,7 @@ Route::get('/', function()
 	return View::make('hello');
 });
 
-Route::resource('/sor', 'SorsController');
-Route::get('/projects/services/projects.svc/GetProjectsMethod/inputStr/{user}/{passwd}', 'ProjectController@getProject');
+Route::group(array('prefix' => 'api/v1'), function () {
+    Route::resource('/sor', 'SorsController');
+    Route::get('/projects/services/projects.svc/GetProjectsMethod/inputStr/{user}/{passwd}', 'ProjectController@getProject');
+});
