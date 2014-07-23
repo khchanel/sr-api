@@ -45,6 +45,9 @@ class ProjectController extends \BaseController {
         // workaround: clear cache if the result is bad
         if (!$result) {
             Cache::forget('projects_' . $cache_key);
+
+            // make result an empty array if its empty
+            $result = [];
         }
 
         return Response::json($result);
