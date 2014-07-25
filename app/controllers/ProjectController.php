@@ -16,7 +16,7 @@ class ProjectController extends \BaseController {
      *
      * return array of all projects belonging to the user;
      */
-    public function getProject($user, $passwd)
+    public function getAllProjects($user, $passwd)
     {
         $server = Config::get('constants.API_SERVER');
         $api = "/projects/services/projects.svc/GetProjectsMethod/inputStr/$user/$passwd";

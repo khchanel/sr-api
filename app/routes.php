@@ -18,5 +18,5 @@ Route::get('/', function()
 
 Route::group(array('prefix' => 'api/v1'), function () {
     Route::resource('/sor', 'SorsController');
-    Route::get('/projects/services/projects.svc/GetProjectsMethod/inputStr/{user}/{passwd}', 'ProjectController@getProject');
+    Route::get('/projects/services/projects.svc/GetProjectsMethod/inputStr/{user}/{passwd}', 'ProjectController@getAllProjects');
 });
