@@ -29,8 +29,8 @@ Route::group(array('prefix' => 'api/v1'), function () {
     });
 
     // API
-    Route::resource('/sor', 'SorsController');
-    Route::resource('/project', 'ProjectController');
+    Route::resource('/sor', 'SorsController', array('only' => array('index', 'show')));
+    Route::resource('/project', 'ProjectController', array('only' => array('index')));
 
     // API for legacy compatibility with Stream
     Route::get('/projects/services/projects.svc/GetProjectsMethod/inputStr/{user}/{passwd}', 'ProjectController@getAllProjects');
