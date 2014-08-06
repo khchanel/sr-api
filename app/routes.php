@@ -18,6 +18,7 @@ Route::get('/', function()
 
 Route::group(array('prefix' => 'api/v1'), function () {
 
+    // default route to info
     Route::get('/', function() {
         $info = array(
             'name' => 'sr-api',
@@ -27,6 +28,10 @@ Route::group(array('prefix' => 'api/v1'), function () {
         return $info;
     });
 
+    // API
     Route::resource('/sor', 'SorsController');
+    Route::resource('/project', 'ProjectController');
+
+    // API for legacy compatibility with Stream
     Route::get('/projects/services/projects.svc/GetProjectsMethod/inputStr/{user}/{passwd}', 'ProjectController@getAllProjects');
 });

@@ -10,6 +10,23 @@ class ProjectController extends \BaseController {
 
 
     /**
+     * Wrapper around getAllProjects()
+     */
+    public function index()
+    {
+        // verify user credentials are given
+        if (!(Input::has('user') && Input::has('passwd'))) {
+            return Response::json(array('error' => '401 Unauthorized'), 401);
+        }
+
+        $user = Input::get('user');
+        $passwd = Input::get('passwd');
+
+        return $this->getAllProjects($user, $passwd);
+    }
+
+
+    /**
      * Proxy to SR Get Project API
      * http://120.151.95.114:8080/projects/services/projects.svc/GetProjectsMethod/inputStr/{user}/{passwd}
      * params: $user, $passwd
