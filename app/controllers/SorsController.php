@@ -29,8 +29,12 @@ class SorsController extends \BaseController {
         }
 
         // paginate result
-        $perPage = Input::has('per_page') ? Input::get('per_page') : 15;
-        $sors = $sors->paginate($perPage);
+        if (Input::has('per_page') || Input::has('page')) {
+            $perPage = Input::has('per_page') ? Input::get('per_page') : 15;
+            $sors = $sors->paginate($perPage);
+        } else {
+            $sors = $sors->get();
+        }
 
         return Response::json($sors);
     }
