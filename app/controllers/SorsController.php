@@ -19,7 +19,8 @@ class SorsController extends \BaseController {
      */
     public function index()
     {
-        $sors = Sor::take(20);
+        // init eloquent query
+        $sors = Sor::getQuery();
 
         // filter location
         if (Input::has('location')) {
@@ -27,7 +28,10 @@ class SorsController extends \BaseController {
             $sors = $sors->where('Location', 'LIKE', "%$loc%");
         }
 
-        return Response::json($sors->get());
+        // paginate result
+        $sors = $sors->paginate($limit=15);
+
+        return Response::json($sors);
     }
 
 
