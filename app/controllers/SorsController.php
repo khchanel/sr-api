@@ -32,6 +32,22 @@ class SorsController extends \BaseController {
             $sors = $sors->where('Location', 'LIKE', "%$loc%");
         }
 
+        // search by keyword
+        if (Input::has('keyword')) {
+            $keyword = Input::get('keyword');
+
+            $sors = $sors->where(function($sors) use ($keyword) {
+                // SORCode
+                // Name
+                // LongDescription
+                // Location
+                $sors->where('SORCode', 'LIKE', "%$keyword%")
+                    ->orWhere('Name', 'LIKE', "%$keyword%")
+                    ->orWhere('LongDescription', 'LIKE', "%$keyword%")
+                    ->orWhere('Location', 'LIKE', "%$keyword%");
+            });
+        }
+
         // paginate result
         if (Input::has('per_page') || Input::has('page')) {
             $perPage = Input::has('per_page') ? Input::get('per_page') : 15;
@@ -39,6 +55,7 @@ class SorsController extends \BaseController {
         } else {
             $sors = $sors->get();
         }
+
 
         return Response::json($sors);
     }
