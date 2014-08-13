@@ -14,6 +14,10 @@ class SorsController extends \BaseController {
      *
      * GET /sor
      * GET /sor?location=AIRL
+     * GET /sor?page=1
+     * GET /sor?per_page=20
+     *
+     * Can mix and match parameters
      *
      * @return array of matching SOR objects
      */
