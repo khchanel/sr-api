@@ -2,9 +2,12 @@
 
 class SorsController extends \BaseController {
 
+    private $sors;
 
-    public function __construct()
+    public function __construct(ISorRepo $sors)
     {
+        $this->sors = $sors;
+
         header('Access-Control-Allow-Origin: *');
     }
 
@@ -25,7 +28,7 @@ class SorsController extends \BaseController {
     public function index()
     {
         // init eloquent query
-        $sors = Sor::getQuery();
+        $sors = $this->sors->getQuery();
 
         // filter location
         if (Input::has('location')) {
@@ -70,7 +73,7 @@ class SorsController extends \BaseController {
      */
     public function show($code)
     {
-        $sor = Sor::find($code);
+        $sor = $this->sors->findByCode($code);
         return Response::json($sor);
     }
 
