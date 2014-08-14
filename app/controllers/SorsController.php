@@ -16,6 +16,7 @@ class SorsController extends \BaseController {
      * GET /sor?location=AIRL
      * GET /sor?page=1
      * GET /sor?per_page=20
+     * GET /sor?keyword=flooring
      *
      * Can mix and match parameters
      *
