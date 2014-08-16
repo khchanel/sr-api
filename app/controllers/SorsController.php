@@ -7,8 +7,6 @@ class SorsController extends \BaseController {
     public function __construct(ISorRepo $sors)
     {
         $this->sors = $sors;
-
-        header('Access-Control-Allow-Origin: *');
     }
 
 

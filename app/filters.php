@@ -88,3 +88,15 @@ Route::filter('csrf', function()
 		throw new Illuminate\Session\TokenMismatchException;
 	}
 });
+
+/*
+|--------------------------------------------------------------------------
+| Cross Original Resource Sharing Filter
+|--------------------------------------------------------------------------
+|
+*/
+
+Route::filter('cors.all', function($route, $request, $response)
+{
+    $response->header('access-control-allow-origin', '*');
+});

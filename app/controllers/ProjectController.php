@@ -5,7 +5,7 @@ class ProjectController extends \BaseController {
 
     public function __construct()
     {
-        header('Access-Control-Allow-Origin: *');
+        //
     }
 
 

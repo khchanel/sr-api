@@ -16,7 +16,7 @@ Route::get('/', function()
 	return View::make('hello');
 });
 
-Route::group(array('prefix' => 'api/v1'), function () {
+Route::group(array('prefix' => 'api/v1', 'after' => 'cors.all'), function () {
 
     // default route to info
     Route::get('/', function() {
