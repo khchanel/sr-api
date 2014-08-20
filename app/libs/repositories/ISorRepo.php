@@ -2,6 +2,6 @@
 
 interface ISorRepo
 {
-    public function findByCode($code);
+    public function get($code);
     public function all();
 }

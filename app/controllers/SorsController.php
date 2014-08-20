@@ -71,7 +71,7 @@ class SorsController extends \BaseController {
      */
     public function show($code)
     {
-        $sor = $this->sors->findByCode($code);
+        $sor = $this->sors->get($code);
         return Response::json($sor);
     }
 

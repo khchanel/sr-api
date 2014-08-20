@@ -12,7 +12,7 @@ class SorEloquentRepo implements ISorRepo
     }
 
 
-    public function findByCode($code)
+    public function get($code)
     {
         return $this->sorModel->find($code);
     }
