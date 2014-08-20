@@ -89,3 +89,4 @@ require app_path().'/filters.php';
 */
 
 App::bind('ISorRepo', 'SorEloquentRepo');
+App::bind('IProjectRepo', 'ProjectStreamRepo');
