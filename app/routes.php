@@ -11,8 +11,7 @@
 |
 */
 
-Route::get('/', function()
-{
+Route::get('/', function() {
 	return View::make('hello');
 });
 
@@ -33,5 +32,18 @@ Route::group(array('prefix' => 'api/v1', 'after' => 'cors.all'), function () {
     Route::resource('/project', 'ProjectController', array('only' => array('index', 'show')));
 
     // API for legacy compatibility with Stream
-    Route::get('/projects/services/projects.svc/GetProjectsMethod/inputStr/{user}/{passwd}', 'ProjectController@getAllProjects');
+    Route::group(array(), legacy());
 });
+
+
+////////////////////////////////////////////////
+// Legacy Route without route prefix
+Route::group(array(), legacy());
+
+
+/* Closure for legacy Routing */
+function legacy() {
+    return function() {
+        Route::get('/projects/services/projects.svc/GetProjectsMethod/inputStr/{user}/{passwd}', 'ProjectController@getAllProjects');
+    };
+}
