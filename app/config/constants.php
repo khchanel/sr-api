@@ -1,5 +1,5 @@
 <?php
 
 return array(
-    'API_SERVER' => 'http://120.151.95.114:8080',
+    'API_SERVER' => 'http://54.186.242.191',
 );
