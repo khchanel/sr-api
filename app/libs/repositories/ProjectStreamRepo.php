@@ -81,22 +81,39 @@ class ProjectStreamRepo implements IProjectRepo
      */
     public function get($code)
     {
-        // invoke Stream API
-        $data = $this->fetchProjects();
+        // cache config
+        $cacheKey = 'projects_get_' . $code . '-' . $this->param['user'] . '-' . $this->param['passwd'];
+        $expire = 10; // in minutes
 
-        // verify response
-        if (!$data) return null;
+        // execute
+        $result = Cache::remember($cacheKey, $expire, function() use ($code) {
 
-        // search for the specific project by unique code
-        $project = null;
-        foreach ($data as $proj) {
-            if ($proj->Code == $code) {
-                $project = $proj;
-                break;
+            // invoke Stream API
+            $data = $this->fetchProjects();
+
+            // verify response
+            if (!$data) return null;
+
+            // search for the specific project by unique code
+            $project = null;
+
+            foreach ($data as $proj) {
+                if ($proj->Code == $code) {
+                    $project = $proj;
+                    break;
+                }
             }
+
+            return $project;
+
+        });
+
+        // clear cache if the result is bad
+        if (!$result) {
+            Cache::forget($cacheKey);
         }
 
-        return $project;
+        return $result;
     }
 
 
