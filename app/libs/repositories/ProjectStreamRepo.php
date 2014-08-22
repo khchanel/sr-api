@@ -39,21 +39,38 @@ class ProjectStreamRepo implements IProjectRepo
      */
     public function getByCoordinator($coordinator)
     {
-        // invoke Stream API
-        $data = $this->fetchProjects();
+        // cache config
+        $cacheKey = 'projects_coord_' . $this->param['user'] . '-' . $this->param['passwd'];
+        $expire = 10; // in minutes
 
-        // verify response
-        if (!$data) return null;
+        // execute
+        $result = Cache::remember($cacheKey, $expire, function() use ($coordinator) {
 
-        // filter projects by coordinator
-        $filtered = array();
-        foreach ($data as $proj) {
-            if (stripos($proj->Coordinator, $coordinator) !== FALSE) {
-                $filtered[] = $proj;
+            // invoke Stream API
+            $data = $this->fetchProjects();
+
+            // verify response
+            if (!$data) return null;
+
+            // filter projects by coordinator
+            $filtered = array();
+
+            foreach ($data as $proj) {
+                if (stripos($proj->Coordinator, $coordinator) !== FALSE) {
+                    $filtered[] = $proj;
+                }
             }
+
+            return $filtered;
+        });
+
+        // clear cache if the result is bad
+        if (!$result) {
+            Cache::forget($cacheKey);
+            $result = array();
         }
 
-        return $filtered;
+        return $result;
     }
 
 
