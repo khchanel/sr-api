@@ -23,6 +23,10 @@ class ProjectController extends \BaseController
 
     /**
      * Get all project belonging to the user
+     *
+     * usage:
+     * GET /project?user=xxx&passwd=yyy
+     * GET /project?user=xxx&passwd=yyy&all=1
      */
     public function index()
     {
@@ -30,9 +34,11 @@ class ProjectController extends \BaseController
             return Response::json($this->errors['401'], 401);
         }
 
+        $all = Input::has('all');
         $coordinator = Input::get('user');
+        $result = $all ? $this->projects->all() : $this->projects->getByCoordinator($coordinator);
 
-        return Response::json($this->projects->getByCoordinator($coordinator));
+        return Response::json($result);
     }
 
 
