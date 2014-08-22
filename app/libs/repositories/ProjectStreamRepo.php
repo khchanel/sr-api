@@ -6,6 +6,14 @@
  */
 class ProjectStreamRepo implements IProjectRepo
 {
+    private $param;
+
+
+    public function __construct($param = array())
+    {
+        $this->setParam($param);
+    }
+
 
     /**
      * Get an array of all projects
@@ -76,18 +84,39 @@ class ProjectStreamRepo implements IProjectRepo
 
 
     /**
+     * Get parameters
+     *
+     * @return Array
+     */
+    public function getParam()
+    {
+        return $this->param;
+    }
+
+
+    /**
+     * Set parameters
+     */
+    public function setParam($param = array())
+    {
+        asort($param);
+        $this->param = $param;
+    }
+
+
+    /**
      * fetch array of all projects from Stream
      * @return Array of all projects or NULL on error
      */
     private function fetchProjects()
     {
         // NOTE:
-        // Input::all() contains user & passwd using them as cache key can avoid
-        // user without correct credential to see cached result of a genuine user
+        // using user & passwd as cache key can avoid user without
+        // correct credential to see cached result from prev genuine user
 
         // cache config
-        $param = Input::all(); asort($param);
-        $cacheKey = 'projects_' . implode($param);
+        $key = $this->param['user'] . '-' . $this->param['passwd'];
+        $cacheKey = 'projects_' . $key;
         $expire = 10; // minutes
 
         // execute
@@ -114,8 +143,8 @@ class ProjectStreamRepo implements IProjectRepo
     private function serviceUri()
     {
         // configuration
-        $user = Input::get('user');
-        $passwd = Input::get('passwd');
+        $user = $this->param['user'];
+        $passwd = $this->param['passwd'];
         $server = Config::get('constants.API_SERVER');
         $api = "/projects/services/projects.svc/GetProjectsMethod/inputStr/$user/$passwd";
         $service =  $server . $api;

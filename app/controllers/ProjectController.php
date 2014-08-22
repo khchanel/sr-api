@@ -18,6 +18,7 @@ class ProjectController extends \BaseController
     public function __construct(IProjectRepo $projectRepo)
     {
         $this->projects = $projectRepo;
+        $this->projects->setParam(Input::all());
     }
 
 
