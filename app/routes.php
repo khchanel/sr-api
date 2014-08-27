@@ -30,6 +30,7 @@ Route::group(array('prefix' => 'api/v1', 'after' => 'cors.all'), function () {
     // API
     Route::resource('/sor', 'SorsController', array('only' => array('index', 'show')));
     Route::resource('/project', 'ProjectController', array('only' => array('index', 'show')));
+    Route::resource('/location', 'LocationController', array('only' => array('index')));
 
     // API for legacy compatibility with Stream
     Route::group(array(), legacy());
