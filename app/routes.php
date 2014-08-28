@@ -33,18 +33,13 @@ Route::group(array('prefix' => 'api/v1', 'after' => 'cors.all'), function () {
     Route::resource('/location', 'LocationController', array('only' => array('index')));
 
     // API for legacy compatibility with Stream
-    Route::group(array(), legacy());
+    Route::get('/projects/services/projects.svc/GetProjectsMethod/inputStr/{user}/{passwd}', 'ProjectController@getAllProjects');
+
 });
 
 
 ////////////////////////////////////////////////
 // Legacy Route without route prefix
-Route::group(array(), legacy());
+Route::get('/projects/services/projects.svc/GetProjectsMethod/inputStr/{user}/{passwd}', 'ProjectController@getAllProjects');
 
 
-/* Closure for legacy Routing */
-function legacy() {
-    return function() {
-        Route::get('/projects/services/projects.svc/GetProjectsMethod/inputStr/{user}/{passwd}', 'ProjectController@getAllProjects');
-    };
-}
