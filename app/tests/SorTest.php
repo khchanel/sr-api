@@ -35,4 +35,31 @@ class SorTest extends TestCase {
         $this->assertTrue($x['Code'] === $data['Code'], $message = 'Response data incorrect (Code)');
 
     }
+
+
+    /**
+     * Test GET /sor
+     */
+    public function testSorSuccess()
+    {
+        /* NOTE: SorsController make use of eloquent methods directly
+         * therefore the data cant be mocked
+         * this test is hitting real database
+         */
+
+        // make request
+        $response = $this->call('GET', "/api/v1/sor?page=1");
+
+        // verify
+        $this->assertTrue($response->isOk(), $message='Not OK');
+
+        $x = json_decode($response->getContent(), $assoc = TRUE);
+        $this->assertNotNull($x['total']);
+        $this->assertEquals($x['current_page'], 1);
+        $this->assertNotNull($x['total']);
+        $this->assertNotNull($x['per_page']);
+        $this->assertNotNull($x['from']);
+        $this->assertNotNull($x['to']);
+        $this->assertTrue(is_array($x['data']));
+    }
 }
