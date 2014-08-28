@@ -151,4 +151,25 @@ class ProjectTest extends TestCase {
         $this->assertTrue($x['Code'] === $this->projectData[1]['Code'], $message = 'Response data incorrect (Code)');
     }
 
+
+    public function testProjectLegacy()
+    {
+        // init
+        $user = 'x';
+        $passwd = 'y';
+
+        // mock IProjectRepo
+        $mock = Mockery::mock('ProjectStreamRepo[all]'); // partial mock
+        $mock->shouldReceive('all')->once()->andReturn($this->projectData);
+        $this->app->instance('IProjectRepo', $mock); // Dependency Injection
+
+        // make request
+        $response = $this->call('GET', "/projects/services/projects.svc/GetProjectsMethod/inputStr/$user/$passwd");
+
+        // verify data
+        $x = json_decode($response->getContent(), $assoc = TRUE);
+        $this->assertNotNull($x, $message = 'Response is not JSON');
+        $this->assertEquals(sizeof($x), sizeof($this->projectData), $message = 'Response data incorrect');
+    }
+
 }
