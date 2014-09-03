@@ -4,10 +4,16 @@
 All endpoints are prefixed with API version string (e.g.  /api/v1)
 All endpoints return in json format
 
+# Endpoint summary
+
+* GET /api/v1/project
+* GET /api/v1/location
+* GET /api/v1/sor
+
 
 # Endpoint - Projects
 
-## GET /api/v1/projects
+## GET /api/v1/project
 
 Return array of project data
 Return 401 on authentication error
