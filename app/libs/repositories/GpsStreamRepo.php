@@ -46,15 +46,23 @@ class GpsStreamRepo implements IGpsRepo
         $api = '/Projects/Services/GPSServices.svc/GetTrackerDevCrossTable';
         $service = $server . $api;
 
+        $cacheKey = 'gps_trackers';
+        $expire = 0.5; // minute
+
         // exec
-        $resource = file_get_contents($service);
-        $data = json_decode($resource);
+        $result = Cache::remember($cacheKey, $expire, function() use ($service) {
+            // invoke remote service
+            $resource = file_get_contents($service);
+            $data = json_decode($resource);
 
+            return $data;
+        });
 
-        if (!$data) {
-            return null;
+        // clear cache if the result is bad
+        if (!$result) {
+            Cache::forget($cacheKey);
         }
 
-        return $data;
+        return $result;
     }
 }
