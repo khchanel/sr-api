@@ -88,6 +88,4 @@ require app_path().'/filters.php';
 |
 */
 
-App::bind('ISorRepo', 'SorEloquentRepo');
-App::bind('IProjectRepo', 'ProjectStreamRepo');
-App::bind('IGpsRepo', 'GpsStreamRepo');
+require app_path().'/start/binding.php';
