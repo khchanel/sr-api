@@ -7,22 +7,25 @@ All endpoints return in json format
 # Endpoint summary
 
 * GET /api/v1/project
+* GET /api/v1/project/{Code}
 * GET /api/v1/location
 * GET /api/v1/sor
+* GET /api/v1/sor/{SORCode}
 
 
-# Endpoint - Projects
+# Endpoint - Project list
 
 ## GET /api/v1/project
 
-Return array of project data
-Return 401 on authentication error
+Return array of project owned by the given user
+Return 401 on authentication error or missing user/passwd parameter
 
 
 ### Parameters:
 
     user:       username
     passwd:     password
+    [all]:        ANY
 
 ### Examples:
 
@@ -76,6 +79,29 @@ Response 200
 }]
 ```
 
+# Endpoint - Project by Code
+
+## GET /api/v1/project/{Code}
+
+Return a project object find by Code
+Return 401 on authentication error or missing user/passwd parameter
+
+### Parameters:
+
+    user:       username
+    passwd:     password
+
+### Examples:
+
+* GET /api/v1/project/72282?user=xxx&passwd=yyy
+
+Response 200
+```
+{"Address":"22\/15-25 Burns Road, LEUMEAH, NSW, 2560","Client":"St George Community Housing","ClientRef":"0044005","Code":72282,"ContractorRef":null,"Coordinator":"Adris Frety","Duration":null,"Finish":"05\/09\/2014","FinishDate":null,"Instructions":"EOT: Work Insurance scope","MasterCode":null,"SLA":null,"Start":"03\/09\/2014","StartDate":null,"Status":"New","SubClient":null,"TaskType":null}
+```
+
+
+
 # Endpoint - Location
 
 ## GET /api/v1/location
@@ -92,7 +118,7 @@ Response 200
 ```
 
 
-# Endpoint - SOR
+# Endpoint - SOR list
 
 ## GET  /api/v1/sor
 
@@ -100,10 +126,10 @@ Return array of SOR data
 
 ### Parameters:
 
-    keyword:    search keyword
-    location:   filter by the location given
-    page:       current page number
-    per_page:   result per page
+    [keyword]:    search keyword
+    [location]:   filter by the location given
+    [page]:       current page number
+    [per_page]:   result per page
 
 Note: if page or per_page are not given, result will come with no pagination
     parameters can be mixed and are optional
@@ -214,4 +240,20 @@ Response 200
     "Photo": ""
   }]
 }
+```
+
+
+# Endpoint - SOR by SORCode
+
+## GET /api/v1/sor/{SORCode}
+
+Return the sor object matching the SORCode
+
+### Examples:
+
+* GET /api/v1/sor/MIN18350
+
+Response 200
+```
+{"SORCode":"MIN18350","Tradecode":"","UomCode":"m.","Name":"(Renew strip flooring up to 6 metres)","LongDescription":"Remove and dispose of existing and supply and fix strip flooring up to 6 metres.  Hardwood\/Cypress up to 100mm wide.  Staggered joints - Each room.","Status":"False","Price201213":"9.999999999","Price":"9.999999999","Warranty":"0","Manual":"0","Deleted":"0","Code":"606","Location":"All,BED1 ,HALL, AIRL","Photo":"~\\Files\\SOR\\1c8dbe4709ae44a388f6dee379a8f0bc.jpg"}
 ```
