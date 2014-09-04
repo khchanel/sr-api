@@ -31,6 +31,7 @@ Route::group(array('prefix' => 'api/v1', 'after' => 'cors.all'), function () {
     Route::resource('/sor', 'SorsController', array('only' => array('index', 'show')));
     Route::resource('/project', 'ProjectController', array('only' => array('index', 'show')));
     Route::resource('/location', 'LocationController', array('only' => array('index')));
+    Route::resource('/gps', 'GpsController', array('only' => array('index', 'show')));
 
     // API for legacy compatibility with Stream
     Route::get('/projects/services/projects.svc/GetProjectsMethod/inputStr/{user}/{passwd}', 'ProjectController@getAllProjects');
