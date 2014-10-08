@@ -129,7 +129,7 @@ Return array of SOR data
     [keyword]:    search keyword
     [location]:   filter by the location given
     [page]:       current page number
-    [per_page]:   result per page
+    [per_page]:   result per page (default: 15)
 
 Note: if page or per_page are not given, result will come with no pagination
     parameters can be mixed and are optional
