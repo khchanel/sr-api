@@ -17,7 +17,7 @@ class CreateSorsTable extends Migration {
         Schema::create('sr_sors', function(Blueprint $table)
         {
             $table->string('SORCode')->primary();
-            $table->string('Tradecode');
+            $table->string('TradeCode');
             $table->string('UomCode');
             $table->string('Name');
             $table->text('LongDescription');
