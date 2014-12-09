@@ -19,7 +19,7 @@ class CreateSorsTable extends Migration {
             $table->string('SORCode')->primary();
             $table->string('TradeCode');
             $table->string('UomCode');
-            $table->string('Name');
+            $table->text('Name');
             $table->text('LongDescription');
             $table->string('Status');
             $table->double('Price201213');
