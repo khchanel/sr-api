@@ -8,5 +8,5 @@
 */
 
 App::bind('ISorRepo', 'SorEloquentRepo');
-App::bind('IProjectRepo', 'ProjectStreamRepo');
+App::bind('IProjectRepo', 'ProjectRepo');
 App::bind('IGpsRepo', 'GpsStreamRepo');
